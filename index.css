@@ -1,3 +1,4 @@
+
 /**
  * @license
  * Copyright (c) 2024 Your Company or Name. All Rights Reserved.
@@ -271,6 +272,18 @@ html, body {
     background-color: var(--primary-color); color: white; width: 44px; height: 44px; flex-shrink: 0;
     transition: background-color 0.2s ease;
 }
+#chat-form #chat-mic-btn { background-color: var(--bg-color); color: var(--text-color); }
+#chat-form #chat-mic-btn.listening {
+    background-color: var(--danger-color);
+    color: white;
+    animation: mic-pulse 1.5s infinite;
+}
+@keyframes mic-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+
 #chat-form .icon-button:hover { background-color: var(--primary-color-dark); }
 .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 0 0 8px 16px; }
 .typing-indicator span {
@@ -447,6 +460,39 @@ html, body {
     margin-bottom: 8px;
 }
 .layer-toggle:last-child { margin-bottom: 0; }
+
+/* Center Location Button */
+#center-location-btn {
+    position: absolute;
+    bottom: calc(90px + 60px); /* Positioned above zoom controls */
+    right: 10px;
+    z-index: 999;
+    background-color: var(--header-bg-color);
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+[data-theme="dark"] #center-location-btn {
+    background-color: var(--panel-bg-color);
+}
+
+/* User Location Marker */
+.user-location-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3498db;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px #3498db;
+    animation: user-marker-pulse 2s infinite;
+}
+@keyframes user-marker-pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+}
+
 
 /* Leaflet control repositioning */
 .leaflet-control-zoom {

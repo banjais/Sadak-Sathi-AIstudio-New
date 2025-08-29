@@ -1,3 +1,4 @@
+
 /**
  * @license
  * Copyright (c) 2024 Your Company or Name. All Rights Reserved.
@@ -45,7 +46,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 
 // =================================================================================
-// ARCHITECTURE REFACTOR: "Backend-Ready" API Simulation
+// ARCHITECTURE REFACTOR: "Backend-Ready" API Simulation with i18n
 // =================================================================================
 const api = {
     // In a real backend, this would fetch your DoR GeoJSON shapefile.
@@ -55,10 +56,10 @@ const api = {
         await new Promise(resolve => setTimeout(resolve, 200));
         return Promise.resolve({
             "type": "FeatureCollection", "features": [
-                { "type": "Feature", "properties": { "name": "Araniko Highway", "status": "good" }, "geometry": { "type": "LineString", "coordinates": [[85.3, 27.7], [85.4, 27.75], [85.5, 27.7]] } },
-                { "type": "Feature", "properties": { "name": "Prithvi Highway", "status": "fair" }, "geometry": { "type": "LineString", "coordinates": [[84.4, 27.7], [84.8, 27.65], [85.3, 27.7]] } },
-                { "type": "Feature", "properties": { "name": "Local Road", "status": "poor" }, "geometry": { "type": "LineString", "coordinates": [[85.32, 27.68], [85.35, 27.69], [85.34, 27.66]] } },
-                { "type": "Feature", "properties": { "name": "Congested Inner Road", "status": "good" }, "geometry": { "type": "LineString", "coordinates": [[85.322, 27.693], [85.324, 27.691], [85.318, 27.689], [85.316, 27.691]] } }
+                { "type": "Feature", "properties": { "name": { en: "Araniko Highway", np: "अरनिको राजमार्ग", hi: "अरनिको राजमार्ग" }, "status": { en: "good", np: "राम्रो", hi: "अच्छा" } }, "geometry": { "type": "LineString", "coordinates": [[85.3, 27.7], [85.4, 27.75], [85.5, 27.7]] } },
+                { "type": "Feature", "properties": { "name": { en: "Prithvi Highway", np: "पृथ्वी राजमार्ग", hi: "पृथ्वी राजमार्ग" }, "status": { en: "fair", np: "ठीकै", hi: "ठीक" } }, "geometry": { "type": "LineString", "coordinates": [[84.4, 27.7], [84.8, 27.65], [85.3, 27.7]] } },
+                { "type": "Feature", "properties": { "name": { en: "Local Road", np: "स्थानीय सडक", hi: "स्थानीय सड़क" }, "status": { en: "poor", np: "कमजोर", hi: "खराब" } }, "geometry": { "type": "LineString", "coordinates": [[85.32, 27.68], [85.35, 27.69], [85.34, 27.66]] } },
+                { "type": "Feature", "properties": { "name": { en: "Congested Inner Road", np: "भीडभाडयुक्त भित्री सडक", hi: "भीड़भाड़ वाली भीतरी सड़क" }, "status": { en: "good", np: "राम्रो", hi: "अच्छा" } }, "geometry": { "type": "LineString", "coordinates": [[85.322, 27.693], [85.324, 27.691], [85.318, 27.689], [85.316, 27.691]] } }
             ]
         });
     },
@@ -66,19 +67,19 @@ const api = {
         console.log("API: Fetching POIs...");
         await new Promise(resolve => setTimeout(resolve, 300));
         return Promise.resolve([
-            { id: 1, name: "Maitighar Mandala", lat: 27.693, lng: 85.322, type: 'poi', status: 'Good condition', category: 'landmark' },
-            { id: 2, name: "Thapathali Bridge", lat: 27.691, lng: 85.316, type: 'bridge', status: 'Under maintenance', category: 'bridge' },
-            { id: 5, name: "Patan Hospital", lat: 27.671, lng: 85.318, type: 'poi', status: 'Open 24/7', category: 'hospital' },
-            { id: 6, name: "Himalayan Java Coffee", lat: 27.695, lng: 85.320, type: 'poi', status: 'Open', category: 'coffee shop' },
-            { id: 7, name: "Civil Mall", lat: 27.699, lng: 85.314, type: 'poi', status: 'Open', category: 'shopping' }
+            { id: 1, name: { en: "Maitighar Mandala", np: "माइतीघर मण्डला", hi: "माइतीघर मंडला" }, lat: 27.693, lng: 85.322, type: 'poi', status: { en: 'Good condition', np: 'राम्रो अवस्था', hi: 'अच्छी स्थिति' }, category: { en: 'landmark', np: 'चिनारी', hi: 'सीमाचिह्न' } },
+            { id: 2, name: { en: "Thapathali Bridge", np: "थापाथली पुल", hi: "थापाथली पुल" }, lat: 27.691, lng: 85.316, type: 'bridge', status: { en: 'Under maintenance', np: 'मर्मत अन्तर्गत', hi: 'रखरखाव चल रहा है' }, category: { en: 'bridge', np: 'पुल', hi: 'पुल' } },
+            { id: 5, name: { en: "Patan Hospital", np: "पाटन अस्पताल", hi: "पाटन अस्पताल" }, lat: 27.671, lng: 85.318, type: 'poi', status: { en: 'Open 24/7', np: '२४/७ खुला', hi: '२४/७ खुला' }, category: { en: 'hospital', np: 'अस्पताल', hi: 'अस्पताल' } },
+            { id: 6, name: { en: "Himalayan Java Coffee", np: "हिमालयन जाभा कफी", hi: "हिमालयन जावा कॉफी" }, lat: 27.695, lng: 85.320, type: 'poi', status: { en: 'Open', np: 'खुला', hi: 'खुला' }, category: { en: 'coffee shop', np: 'कफी पसल', hi: 'कॉफ़ी की दुकान' } },
+            { id: 7, name: { en: "Civil Mall", np: "सिभिल मल", hi: "सिविल मॉल" }, lat: 27.699, lng: 85.314, type: 'poi', status: { en: 'Open', np: 'खुला', hi: 'खुला' }, category: { en: 'shopping', np: 'किनमेल', hi: 'खरीदारी' } }
         ]);
     },
     getIncidents: async (): Promise<any[]> => {
         console.log("API: Fetching Incidents...");
         await new Promise(resolve => setTimeout(resolve, 100));
         return Promise.resolve([
-             { id: 3, name: "Traffic Jam at Baneshwor", lat: 27.693, lng: 85.341, type: 'incident', status: 'incident', category: 'traffic' },
-             { id: 4, name: "Road construction", lat: 27.685, lng: 85.320, type: 'incident', status: 'incident', category: 'construction' }
+             { id: 3, name: { en: "Traffic Jam at Baneshwor", np: "बानेश्वरमा ट्राफिक जाम", hi: "बानेश्वर में ट्रैफिक जाम" }, lat: 27.693, lng: 85.341, type: 'incident', status: { en: 'incident', np: 'घटना', hi: 'घटना' }, category: { en: 'traffic', np: 'ट्राफिक', hi: 'यातायात' } },
+             { id: 4, name: { en: "Road construction", np: "सडक निर्माण", hi: "सड़क निर्माण" }, lat: 27.685, lng: 85.320, type: 'incident', status: { en: 'incident', np: 'घटना', hi: 'घटना' }, category: { en: 'construction', np: 'निर्माण', hi: 'निर्माण' } }
         ]);
     }
 };
@@ -114,14 +115,20 @@ const translations = {
         prefer_scenic_route: "Prefer Scenic Route", layers: "Layers", roads: "Roads", pois: "Points of Interest",
         incidents: "Incidents", display_panel_title: "Nearby Information", route_finder: "Route Finder",
         find_route_btn: "Find Optimal Route", clear_route_btn: "Clear Route", share_route: "Share Route",
-        ai_chat_title: "AI Assistant", ai_chat_placeholder: "Type a message...", menu_settings: "Settings",
+        ai_chat_title: "AI Assistant", ai_chat_placeholder: "Type or say something...", menu_settings: "Settings",
         menu_dashboard: "Dashboard", ai_voice_response: "AI Voice Response",
         select_mode: "Select Mode", mode_driving: "Driving", mode_riding: "Riding", mode_exploring: "Exploring",
         mode_connect: "Connect", emergency_sos: "Emergency SOS", sos_message: "Sending your location to emergency contacts...",
         share_trip: "Share Trip", share_trip_desc: "Share a live link of your journey with friends and family.",
         start_sharing: "Start Sharing", sharing_active: "Live location sharing is active.",
         stop_sharing: "Stop Sharing", menu_sos: "SOS", menu_share_trip: "Share Trip",
-        route_finder_hint: "Hint: Click the map to set start/end points."
+        route_finder_hint: "Hint: Click the map to set start/end points.",
+        alert_driver_tired: "System Alert: Driver appears tired. It might be a good time to take a short break.",
+        alert_driver_stressed: "System Alert: Driver appears stressed. Consider pulling over for a moment.",
+        alert_fuel_low: "System Alert: Fuel level is critically low. I can search for nearby petrol stations.",
+        alert_tire_pressure_low: "System Alert: Tire pressure is low. I can find the nearest repair shop for you.",
+        alert_missing_route_points: "Please select a start and destination.",
+        alert_location_not_found: "Could not find one or both locations. Please use exact POI names or click on the map."
     },
     np: {
         route_preferences: "मार्ग प्राथमिकताहरू", prefer_highways: "राजमार्गहरू प्राथमिकता दिनुहोस्",
@@ -129,29 +136,40 @@ const translations = {
         layers: "तहहरू", roads: "सडकहरू", pois: "चासोका ठाउँहरू", incidents: "घटनाहरू",
         display_panel_title: "नजिकैको जानकारी", route_finder: "मार्ग खोजकर्ता", find_route_btn: "उत्तम मार्ग खोज्नुहोस्",
         clear_route_btn: "मार्ग हटाउनुहोस्", share_route: "मार्ग साझा गर्नुहोस्", ai_chat_title: "एआई सहायक",
-        ai_chat_placeholder: "सन्देश टाइप गर्नुहोस्...", menu_settings: "सेटिङहरू", menu_dashboard: "ड्यासबोर्ड",
+        ai_chat_placeholder: "केहि टाइप गर्नुहोस् वा भन्नुहोस्...", menu_settings: "सेटिङहरू", menu_dashboard: "ड्यासबोर्ड",
         ai_voice_response: "एआई आवाज प्रतिक्रिया", select_mode: "मोड चयन गर्नुहोस्", mode_driving: "ड्राइभिङ",
         mode_riding: "राइडिङ", mode_exploring: "अन्वेषण", mode_connect: "कनेक्ट", emergency_sos: "आपतकालीन एसओएस",
         sos_message: "तपाईंको स्थान आपतकालीन सम्पर्कहरूमा पठाइँदैछ...", share_trip: "यात्रा साझा गर्नुहोस्",
         share_trip_desc: "आफ्नो यात्राको प्रत्यक्ष लिङ्क साथीहरू र परिवारसँग साझा गर्नुहोस्।",
         start_sharing: "साझा गर्न सुरु गर्नुहोस्", sharing_active: "प्रत्यक्ष स्थान साझा सक्रिय छ।",
         stop_sharing: "साझा गर्न रोक्नुहोस्", menu_sos: "एसओएस", menu_share_trip: "यात्रा साझा",
-        route_finder_hint: "सुझाव: सुरु/अन्त्य बिन्दुहरू सेट गर्न नक्सामा क्लिक गर्नुहोस्।"
+        route_finder_hint: "सुझाव: सुरु/अन्त्य बिन्दुहरू सेट गर्न नक्सामा क्लिक गर्नुहोस्।",
+        alert_driver_tired: "सिस्टम चेतावनी: चालक थकित देखिन्छ। छोटो विश्राम लिनु राम्रो हुन्छ।",
+        alert_driver_stressed: "सिस्टम चेतावनी: चालक तनावमा देखिन्छ। कृपया एकछिन गाडी रोक्नुहोस्।",
+        alert_fuel_low: "सिस्टम चेतावनी: इन्धनको स्तर एकदमै कम छ। म नजिकैको पेट्रोल स्टेशन खोज्न सक्छु।",
+        alert_tire_pressure_low: "सिस्टम चेतावनी: टायरको प्रेसर कम छ। म नजिकैको मर्मत पसल खोज्न सक्छु।",
+        alert_missing_route_points: "कृपया सुरु र गन्तव्य चयन गर्नुहोस्।",
+        alert_location_not_found: "एक वा दुबै स्थानहरू फेला पार्न सकिएन। कृपया सही POI नामहरू प्रयोग गर्नुहोस् वा नक्सामा क्लिक गर्नुहोस्।"
     },
-    // Add other languages similarly...
     hi: {
         route_preferences: "मार्ग प्राथमिकताएं", prefer_highways: "राजमार्गों को प्राथमिकता दें", avoid_tolls: "टोल से बचें",
         prefer_scenic_route: "दर्शनीय मार्ग को प्राथमिकता दें", layers: "परतें", roads: "सड़कें", pois: "रुचि के बिंदु",
         incidents: "घटनाएं", display_panel_title: "आस-पास की जानकारी", route_finder: "मार्ग खोजक", find_route_btn: "इष्टतम मार्ग खोजें",
         clear_route_btn: "मार्ग साफ़ करें", share_route: "मार्ग साझा करें", ai_chat_title: "एआई सहायक",
-        ai_chat_placeholder: "एक संदेश टाइप करें...", menu_settings: "सेटिंग्स", menu_dashboard: "डैशबोर्ड",
+        ai_chat_placeholder: "कुछ टाइप करें या कहें...", menu_settings: "सेटिंग्स", menu_dashboard: "डैशबोर्ड",
         ai_voice_response: "एआई वॉयस रिस्पांस", select_mode: "मोड चुनें", mode_driving: "ड्राइविंग",
         mode_riding: "राइडिंग", mode_exploring: "अन्वेषण", mode_connect: "कनेक्ट", emergency_sos: "आपातकालीन एसओएस",
         sos_message: "आपका स्थान आपातकालीन संपर्कों को भेजा जा रहा है...", share_trip: "यात्रा साझा करें",
         share_trip_desc: "अपनी यात्रा का एक लाइव लिंक दोस्तों और परिवार के साथ साझा करें।",
         start_sharing: "साझा करना शुरू करें", sharing_active: "लाइव लोकेशन शेयरिंग सक्रिय है।",
         stop_sharing: "साझा करना बंद करें", menu_sos: "एसओएस", menu_share_trip: "यात्रा साझा करें",
-        route_finder_hint: "संकेत: आरंभ/अंत बिंदु सेट करने के लिए मानचित्र पर क्लिक करें।"
+        route_finder_hint: "संकेत: आरंभ/अंत बिंदु सेट करने के लिए मानचित्र पर क्लिक करें।",
+        alert_driver_tired: "सिस्टम अलर्ट: ड्राइवर थका हुआ लग रहा है। एक छोटा ब्रेक लेना अच्छा रहेगा।",
+        alert_driver_stressed: "सिस्टम अलर्ट: ड्राइवर तनाव में लग रहा है। कृपया थोड़ी देर के लिए गाड़ी रोकें।",
+        alert_fuel_low: "सिस्टम अलर्ट: ईंधन का स्तर बहुत कम है। मैं आस-पास के पेट्रोल स्टेशन खोज सकता हूँ।",
+        alert_tire_pressure_low: "सिस्टम अलर्ट: टायर का दबाव कम है। मैं निकटतम मरम्मत की दुकान ढूंढ सकता हूँ।",
+        alert_missing_route_points: "कृपया एक शुरुआत और गंतव्य चुनें।",
+        alert_location_not_found: "एक या दोनों स्थान नहीं मिल सके। कृपया सटीक POI नामों का उपयोग करें या मानचित्र पर क्लिक करें।"
     },
 };
 
@@ -244,8 +262,6 @@ const processSpeechQueue = async () => {
                     availableVoices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
         }
 
-        // Assign the found voice, or if none is found for a non-English language,
-        // log a warning and skip speaking to prevent errors.
         if (voice) {
             utterance.voice = voice;
             utterance.lang = voice.lang;
@@ -339,6 +355,12 @@ const t = (key: string): string => {
     return (translations as any)[currentLang]?.[key] || (translations as any)['en']?.[key] || key;
 };
 
+// New helper for data objects
+const getLangString = (obj: any, prop: string): string => {
+    if (!obj || !obj[prop]) return '';
+    return obj[prop][currentLang] || obj[prop]['en'] || '';
+};
+
 // =================================================================================
 // Route Finding Logic
 // =================================================================================
@@ -412,18 +434,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = el.getAttribute('data-lang-key-placeholder');
             if (key) el.placeholder = t(key);
         });
+        // Re-render dynamic content with new language
+        loadData();
     };
     
     const init = () => {
         setupMap();
-        loadData();
         setupEventListeners();
         setupAIChat();
         simulateGpsStatus();
         setupCockpitWidgets();
         simulateWeather();
         simulateUserLocation();
-        simulateDriverEmotion();
+        // simulateDriverEmotion(); // Disabled during development to prevent distracting alerts
         simulateVehicleOBD();
 
         const savedLang = localStorage.getItem('appLanguage') || 'en';
@@ -451,7 +474,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadData = async () => {
         const roadsData = await api.getRoads();
-        roadsLayer = L.geoJSON(roadsData, { style: (f) => ({ color: f.properties.status === 'good' ? "#2ecc71" : f.properties.status === 'fair' ? "#f39c12" : "#e74c3c", weight: 5, dashArray: f.properties.status === 'poor' ? '5, 10' : undefined }) }).bindPopup(l => l.feature.properties.name).addTo(map);
+        if (roadsLayer) map.removeLayer(roadsLayer);
+        roadsLayer = L.geoJSON(roadsData, { 
+            style: (f) => ({ color: getLangString(f.properties, 'status') === 'good' ? "#2ecc71" : getLangString(f.properties, 'status') === 'fair' ? "#f39c12" : "#e74c3c", weight: 5, dashArray: getLangString(f.properties, 'status') === 'poor' ? '5, 10' : undefined }) 
+        }).bindPopup(l => getLangString(l.feature.properties, 'name')).addTo(map);
+        
         allPois = await api.getPOIs();
         allIncidents = await api.getIncidents();
         renderPois(allPois);
@@ -460,26 +487,39 @@ document.addEventListener('DOMContentLoaded', () => {
         setupDisplayPanelFilters();
     };
     
-    const renderPois = (pois: any[]) => { poisLayer.clearLayers(); pois.forEach(p => L.marker([p.lat, p.lng]).addTo(poisLayer).bindPopup(`<b>${p.name}</b><br>${p.status}`)); };
-    const renderIncidents = (incidents: any[]) => { incidentsLayer.clearLayers(); incidents.forEach(i => L.marker([i.lat, i.lng]).addTo(incidentsLayer).bindPopup(`<b>${i.name}</b>`)); };
+    const renderPois = (pois: any[]) => { poisLayer.clearLayers(); pois.forEach(p => L.marker([p.lat, p.lng]).addTo(poisLayer).bindPopup(`<b>${getLangString(p, 'name')}</b><br>${getLangString(p, 'status')}`)); };
+    const renderIncidents = (incidents: any[]) => { incidentsLayer.clearLayers(); incidents.forEach(i => L.marker([i.lat, i.lng]).addTo(incidentsLayer).bindPopup(`<b>${getLangString(i, 'name')}</b>`)); };
 
     const setupDisplayPanelFilters = () => {
         const filtersContainer = document.getElementById('display-panel-filters')!;
         filtersContainer.innerHTML = '';
         const allItems = [...allPois, ...allIncidents];
-        const categories = ['All', ...Array.from(new Set(allItems.map(item => item.category)))];
+        
+        const uniqueCategoriesEn = Array.from(new Set(allItems.map(item => getLangString(item, 'category'))));
+        const categories = ['All', ...uniqueCategoriesEn];
+
         const categoryToIconMap: { [key: string]: string } = { 'All': 'apps', 'landmark': 'account_balance', 'bridge': 'commit', 'hospital': 'local_hospital', 'coffee shop': 'local_cafe', 'shopping': 'shopping_cart', 'traffic': 'traffic', 'construction': 'construction' };
-        categories.forEach(category => {
+        
+        categories.forEach(categoryEn => {
             const button = document.createElement('button');
             button.className = 'filter-btn';
-            button.innerHTML = `<span class="material-icons">${categoryToIconMap[category] || 'place'}</span>`;
-            button.dataset.category = category;
-            button.title = category.charAt(0).toUpperCase() + category.slice(1);
-            if (category === 'All') button.classList.add('active');
+            button.innerHTML = `<span class="material-icons">${categoryToIconMap[categoryEn] || 'place'}</span>`;
+            button.dataset.category = categoryEn;
+            
+            // Find a sample item to get the translated category for the title
+            const sampleItem = allItems.find(item => getLangString(item, 'category') === categoryEn);
+            const translatedCategory = sampleItem ? getLangString(sampleItem, 'category') : categoryEn;
+            button.title = categoryEn === 'All' ? 'All' : translatedCategory.charAt(0).toUpperCase() + translatedCategory.slice(1);
+
+            if (categoryEn === 'All') button.classList.add('active');
+            
             button.addEventListener('click', () => {
                 filtersContainer.querySelector('.filter-btn.active')?.classList.remove('active');
                 button.classList.add('active');
-                updateDisplayPanel(category === 'All' ? allItems : allItems.filter(item => item.category === category));
+                const filteredItems = categoryEn === 'All' 
+                    ? allItems 
+                    : allItems.filter(item => getLangString(item, 'category') === categoryEn);
+                updateDisplayPanel(filteredItems);
             });
             filtersContainer.appendChild(button);
         });
@@ -487,11 +527,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateDisplayPanel = (items: any[]) => {
         const listEl = document.getElementById('display-panel-list')!;
-        listEl.innerHTML = items.length === 0 ? '<p style="text-align: center; padding: 1rem;">No items found.</p>' : '';
-        items.sort((a,b) => a.name.localeCompare(b.name)).forEach(item => {
+        listEl.innerHTML = items.length === 0 ? `<p style="text-align: center; padding: 1rem;">No items found.</p>` : '';
+        items.sort((a,b) => getLangString(a, 'name').localeCompare(getLangString(b, 'name'))).forEach(item => {
             const card = document.createElement('div');
             card.className = 'info-card';
-            card.innerHTML = `<h3>${item.name}</h3><p>${item.category}</p><span class="card-status ${item.status.toLowerCase().replace(/\s/g, '-')}">${item.status}</span>`;
+            const status = getLangString(item, 'status');
+            card.innerHTML = `<h3>${getLangString(item, 'name')}</h3><p>${getLangString(item, 'category')}</p><span class="card-status ${status.toLowerCase().replace(/\s/g, '-')}">${status}</span>`;
             card.onclick = () => map.flyTo([item.lat, item.lng], 16);
             listEl.appendChild(card);
         });
@@ -513,11 +554,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const chatForm = document.getElementById('chat-form') as HTMLFormElement;
         const chatInput = document.getElementById('chat-input') as HTMLInputElement;
         const typingIndicator = document.getElementById('typing-indicator') as HTMLElement;
-        const tools: Tool[] = [{ functionDeclarations: [{ name: "googleSearch", description: "Search for information about specific points of interest (POIs) and incidents in the local Kathmandu area.", parameters: { type: Type.OBJECT, properties: { searchQuery: { type: Type.STRING, description: "The name of the place or incident to search for (e.g., 'Thapathali Bridge')." } }, required: ["searchQuery"] } }] }];
-        const googleSearch = ({ searchQuery }: { searchQuery: string }) => {
-            const results = [...allPois, ...allIncidents].filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase().trim()));
-            return { results: results.length > 0 ? results.map(r => ({ name: r.name, category: r.category, status: r.status })) : `No information found for "${searchQuery}".` };
+        const showLocationOnMap = ({ locationName }: { locationName: string }) => {
+            const allItems = [...allPois, ...allIncidents];
+            const location = allItems.find(item => getLangString(item, 'name').toLowerCase() === locationName.toLowerCase().trim());
+            if (location) {
+                map.flyTo([location.lat, location.lng], 16);
+                const targetLayer = location.type === 'poi' ? poisLayer : incidentsLayer;
+                (targetLayer as any).eachLayer((layer: any) => {
+                    const layerLatLng = layer.getLatLng();
+                    if (layerLatLng.lat === location.lat && layerLatLng.lng === location.lng) {
+                        layer.openPopup();
+                    }
+                });
+                return { result: `Showing "${locationName}" on the map.` };
+            }
+            return { result: `Sorry, I could not find a location named "${locationName}".` };
         };
+        const googleSearch = ({ searchQuery }: { searchQuery: string }) => {
+            const results = [...allPois, ...allIncidents].filter(item => getLangString(item, 'name').toLowerCase().includes(searchQuery.toLowerCase().trim()));
+            return { results: results.length > 0 ? results.map(r => ({ name: getLangString(r, 'name'), category: getLangString(r, 'category'), status: getLangString(r, 'status') })) : `No information found for "${searchQuery}".` };
+        };
+        const tools: Tool[] = [{ functionDeclarations: [
+            { name: "showLocationOnMap", description: "Display a specific point of interest (POI) or incident on the map.", parameters: { type: Type.OBJECT, properties: { locationName: { type: Type.STRING, description: "The exact name of the location to show (e.g., 'Patan Hospital')." } }, required: ["locationName"] } },
+            { name: "googleSearch", description: "Search for information about specific POIs and incidents in the Kathmandu area.", parameters: { type: Type.OBJECT, properties: { searchQuery: { type: Type.STRING, description: "The name of the place or incident to search for." } }, required: ["searchQuery"] } }
+        ] }];
+        
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const userInput = chatInput.value.trim();
@@ -528,15 +589,23 @@ document.addEventListener('DOMContentLoaded', () => {
             typingIndicator.classList.remove('hidden');
             try {
                 if (!activeChat) {
-                     activeChat = ai.chats.create({ model: 'gemini-2.5-flash', config: { tools: tools, systemInstruction: `You are a helpful and proactive road assistant for Nepal called Sadak Sathi. The user is currently in '${currentAppMode}' mode. Tailor your responses accordingly. Use the googleSearch tool for specific locations. You will also receive automated system alerts about driver status and vehicle health; address these proactively.` } });
+                     activeChat = ai.chats.create({ model: 'gemini-2.5-flash', config: { tools: tools, systemInstruction: `You are a helpful and proactive road assistant for Nepal called Sadak Sathi. The user is currently in '${currentAppMode}' mode. Tailor your responses accordingly. You can use tools to find information or show locations on the map. You will also receive automated system alerts about driver status and vehicle health; address these proactively.` } });
                 }
                 let response: GenerateContentResponse = await activeChat.sendMessage({ message: userInput });
                 while (true) {
                     const functionCall = response.candidates?.[0]?.content?.parts[0]?.functionCall;
                     if (!functionCall) break;
-                    const args = functionCall.args as { searchQuery: string };
-                    addMessageToChat(`Searching for '${args.searchQuery}'...`, 'ai');
-                    const result = googleSearch(args);
+
+                    let result;
+                    if (functionCall.name === 'showLocationOnMap') {
+                        const args = functionCall.args as { locationName: string };
+                        result = showLocationOnMap(args);
+                    } else if (functionCall.name === 'googleSearch') {
+                        const args = functionCall.args as { searchQuery: string };
+                        addMessageToChat(`Searching for '${args.searchQuery}'...`, 'ai');
+                        result = googleSearch(args);
+                    }
+                    
                     response = await activeChat.sendMessage({ contents: { parts: [{ functionResponse: { name: functionCall.name, response: result } }] } });
                 }
                 addMessageToChat(response.text, 'ai');
@@ -623,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const simulateDriverEmotion = () => {
         const iconEl = document.getElementById('driver-status-icon'), textEl = document.getElementById('driver-status-text');
         if (!iconEl || !textEl) return;
-        const states = [ { s: 'Calm', i: 'sentiment_very_satisfied', d: 20000, a: null }, { s: 'Tired', i: 'sentiment_dissatisfied', d: 10000, a: "System Alert: Driver appears tired. It might be a good time to take a short break." }, { s: 'Calm', i: 'sentiment_very_satisfied', d: 20000, a: null }, { s: 'Stressed', i: 'sentiment_very_dissatisfied', d: 10000, a: "System Alert: Driver appears stressed. Consider pulling over for a moment." } ];
+        const states = [ { s: 'Calm', i: 'sentiment_very_satisfied', d: 20000, a: null }, { s: 'Tired', i: 'sentiment_dissatisfied', d: 10000, a: t('alert_driver_tired') }, { s: 'Calm', i: 'sentiment_very_satisfied', d: 20000, a: null }, { s: 'Stressed', i: 'sentiment_very_dissatisfied', d: 10000, a: t('alert_driver_stressed') } ];
         let i = 0, alertSent = false;
         const cycle = () => {
             const s = states[i];
@@ -640,15 +709,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const simulateVehicleOBD = () => {
-        let f = 85, t = 90, p = 32, fA = false, pA = false;
+        // Fix: Renamed `t` to `temp` to avoid conflict with the global translation function `t`.
+        let f = 85, temp = 90, p = 32, fA = false, pA = false;
         const fV = document.getElementById('fuel-value'), fB = document.getElementById('fuel-bar'), tV = document.getElementById('temp-value'), tB = document.getElementById('temp-bar'), pV = document.getElementById('pressure-value'), pB = document.getElementById('pressure-bar');
         if(!fV || !fB || !tV || !tB || !pV || !pB) return;
         setInterval(() => {
-            f = Math.max(0, f - Math.random()*0.5); t = Math.max(70, Math.min(120, t + (Math.random()-0.5)*2)); p = Math.max(20, p-Math.random()*0.1);
-            fV.textContent = `${Math.round(f)}%`; fB.style.width = `${f}%`; tV.textContent = `${Math.round(t)}°C`; tB.style.width = `${((t - 70) / 50) * 100}%`; pV.textContent = `${Math.round(p)} PSI`; pB.style.width = `${((p-20)/15)*100}%`;
-            fB.className = `progress-bar ${f > 20 ? 'bar-good' : f > 10 ? 'bar-warn' : 'bar-danger'}`; tB.className = `progress-bar ${t < 105 ? 'bar-good' : t < 115 ? 'bar-warn' : 'bar-danger'}`; pB.className = `progress-bar ${p > 28 ? 'bar-good' : p > 25 ? 'bar-warn' : 'bar-danger'}`;
-            if (f < 15 && !fA) { triggerAIAlert("System Alert: Fuel level is critically low. I can search for nearby petrol stations."); fA = true; } else if (f > 20) fA = false;
-            if (p < 26 && !pA) { triggerAIAlert("System Alert: Tire pressure is low. I can find the nearest repair shop for you."); pA = true; } else if (p > 28) pA = false;
+            f = Math.max(0, f - Math.random()*0.5); temp = Math.max(70, Math.min(120, temp + (Math.random()-0.5)*2)); p = Math.max(20, p-Math.random()*0.1);
+            fV.textContent = `${Math.round(f)}%`; fB.style.width = `${f}%`; tV.textContent = `${Math.round(temp)}°C`; tB.style.width = `${((temp - 70) / 50) * 100}%`; pV.textContent = `${Math.round(p)} PSI`; pB.style.width = `${((p-20)/15)*100}%`;
+            fB.className = `progress-bar ${f > 20 ? 'bar-good' : f > 10 ? 'bar-warn' : 'bar-danger'}`; tB.className = `progress-bar ${temp < 105 ? 'bar-good' : temp < 115 ? 'bar-warn' : 'bar-danger'}`; pB.className = `progress-bar ${p > 28 ? 'bar-good' : p > 25 ? 'bar-warn' : 'bar-danger'}`;
+            if (f < 15 && !fA) { triggerAIAlert(t('alert_fuel_low')); fA = true; } else if (f > 20) fA = false;
+            if (p < 26 && !pA) { triggerAIAlert(t('alert_tire_pressure_low')); pA = true; } else if (p > 28) pA = false;
         }, 3000);
     };
 
@@ -710,6 +780,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
+    const handleVoiceInput = () => {
+        if (!SpeechRecognition) {
+            alert("Voice recognition is not supported in this browser.");
+            return;
+        }
+        const recognition = new SpeechRecognition();
+        const chatForm = document.getElementById('chat-form') as HTMLFormElement;
+        const chatInput = document.getElementById('chat-input') as HTMLInputElement;
+        const micBtn = document.getElementById('chat-mic-btn') as HTMLButtonElement;
+        
+        recognition.lang = currentLang;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => micBtn.classList.add('listening');
+        recognition.onend = () => micBtn.classList.remove('listening');
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micBtn.classList.remove('listening');
+        };
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            chatInput.value = transcript;
+            // Use requestSubmit for proper form handling, including submit event listeners
+            if (chatForm.requestSubmit) {
+                chatForm.requestSubmit();
+            } else {
+                // Fallback for older browsers
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                chatForm.dispatchEvent(submitEvent);
+            }
+        };
+
+        recognition.start();
+    };
+
     const setupEventListeners = () => {
         const unlockSpeechSynthesis = () => {
             if (window.speechSynthesis && !isAudioUnlocked) {
@@ -767,6 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
              (document.getElementById('ai-chat-modal') as HTMLElement).classList.add('hidden');
              cancelSpeech();
         });
+        (document.getElementById('chat-mic-btn') as HTMLButtonElement).addEventListener('click', handleVoiceInput);
 
         const routeFinderPanel = document.getElementById('route-finder-panel')!;
         document.getElementById('route-finder-trigger')?.addEventListener('click', () => routeFinderPanel.classList.remove('hidden'));
@@ -803,7 +910,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         map.on('click', handleMapClick);
 
-        // --- NEW: Route Finder Implementation ---
         const fromInput = document.getElementById('from-input') as HTMLInputElement;
         const toInput = document.getElementById('to-input') as HTMLInputElement;
         const findRouteBtn = document.getElementById('find-route-btn')!;
@@ -814,14 +920,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const toValue = toInput.value.trim();
 
             if (!fromValue || !toValue) {
-                alert("Please select a start and destination.");
+                alert(t('alert_missing_route_points'));
                 return;
             }
 
             let fromLatLng: L.LatLng | null = null;
             let toLatLng: L.LatLng | null = null;
 
-            // Try parsing coordinates first
             const fromCoords = fromValue.split(',').map(c => parseFloat(c.trim()));
             const toCoords = toValue.split(',').map(c => parseFloat(c.trim()));
 
@@ -832,25 +937,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 toLatLng = L.latLng(toCoords[0], toCoords[1]);
             }
 
-            // Fallback to POI search if coordinates are not valid
             if (!fromLatLng) {
-                const fromPoi = allPois.find(p => p.name.toLowerCase() === fromValue.toLowerCase());
+                const fromPoi = allPois.find(p => getLangString(p, 'name').toLowerCase() === fromValue.toLowerCase());
                 if (fromPoi) fromLatLng = L.latLng(fromPoi.lat, fromPoi.lng);
             }
             if (!toLatLng) {
-                const toPoi = allPois.find(p => p.name.toLowerCase() === toValue.toLowerCase());
+                const toPoi = allPois.find(p => getLangString(p, 'name').toLowerCase() === toValue.toLowerCase());
                 if (toPoi) toLatLng = L.latLng(toPoi.lat, toPoi.lng);
             }
 
             if (fromLatLng && toLatLng) {
                 drawRoute(fromLatLng, toLatLng);
             } else {
-                alert("Could not find one or both locations. Please use exact POI names or click on the map.");
+                alert(t('alert_location_not_found'));
             }
         });
 
         clearRouteBtn.addEventListener('click', clearRoute);
 
+        document.getElementById('center-location-btn')?.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by your browser.');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(position => {
+                const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
+                map.flyTo(userLatLng, 16);
+                if (userMarker) {
+                    userMarker.setLatLng(userLatLng);
+                } else {
+                    userMarker = L.marker(userLatLng, { 
+                        icon: L.divIcon({ 
+                            className: 'user-location-marker',
+                            html: '' 
+                        }) 
+                    }).addTo(map);
+                }
+            }, () => {
+                alert('Unable to retrieve your location.');
+            });
+        });
 
         // New Mode Switching Event Listeners
         const appModeModal = document.getElementById('app-mode-modal')!;
